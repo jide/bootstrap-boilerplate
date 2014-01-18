@@ -1,8 +1,7 @@
 Bootstrap boilerplate
 =====================
 
-Bootstrap boilerplate ready for customization.
-This is a really simple bootstrap boilerplate ready for customization.
+Bootstrap boilerplate ready for customization. Override variables, mixins, classes and add your own style while keeping original Bootstrap files intact.
 
 Usage
 -----
