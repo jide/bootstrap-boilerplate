@@ -1,0 +1,12 @@
+{
+  "name": "",
+  "version": "0.0.1",
+  "author": "",
+  "homepage": "",
+  "devDependencies": {
+    "grunt": "*",
+    "grunt-contrib-clean": "*",
+    "grunt-contrib-watch": "*",
+    "grunt-contrib-less": "*"
+  }
+}
