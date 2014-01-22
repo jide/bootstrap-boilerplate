@@ -12,9 +12,7 @@ If you don't use Grunt, just modify the variables.less file and compile style.le
 HTML Files
 ----------
 
-There 2 HTML files included :
-
-- index.html, a baic html start page
+- index.html, a very basic HTML start page.
 - components.html, which lists all Bootstrap components in a single page, to quickly have an overview of what your theme looks like. (This file was copied from bootswatch)
 
 Usage
