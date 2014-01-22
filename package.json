@@ -5,8 +5,9 @@
   "homepage": "",
   "devDependencies": {
     "grunt": "*",
-    "grunt-contrib-clean": "*",
+    "grunt-contrib-cssmin": "*",
     "grunt-contrib-watch": "*",
-    "grunt-contrib-less": "*"
+    "grunt-contrib-less": "*",
+    "grunt-contrib-copy": "*"
   }
 }
