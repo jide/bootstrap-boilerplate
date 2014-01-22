@@ -45,7 +45,11 @@ module.exports = function(grunt) {
             grunt.config('copy.variables.dest'),
             filepath.split(path.sep).slice(2).join(path.sep)
           );
-          return !(grunt.file.exists(dest));
+
+          var fs = require('fs');
+          var contents = fs.readFileSync(dest).toString();
+
+          return contents == '// Override Bootstrap variables here.\n\n@icon-font-path: "../bootstrap/fonts/";';
         },
         options: {
           process: function (content, srcpath) {
