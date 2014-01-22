@@ -18,7 +18,7 @@ module.exports = function(grunt) {
           'less/*.less',
           'bootstrap/less/*.less',
         ],
-        tasks: ['copy','less'],
+        tasks: ['copy:variables','less'],
       },
     },
     cssmin: {
@@ -40,21 +40,23 @@ module.exports = function(grunt) {
         src: 'variables.less',
         dest: 'less',
         filter: function(filepath) {
-          var path = require('path');
-          var dest = path.join(
-            grunt.config('copy.variables.dest'),
-            filepath.split(path.sep).slice(2).join(path.sep)
-          );
-
-          var fs = require('fs');
-          var contents = fs.readFileSync(dest).toString();
-
+          var contents = grunt.file.read('less/variables.less');
           return contents == '// Override Bootstrap variables here.\n\n@icon-font-path: "../bootstrap/fonts/";';
         },
         options: {
-          process: function (content, srcpath) {
-            return content.replace(/@icon-font-path:[\s\t]*"[^"]+"/g, '@icon-font-path: "../bootstrap/fonts/"');
+          process: function (contents, srcpath) {
+            return contents.replace(/@icon-font-path:[\s\t]*"[^"]+"/g, '@icon-font-path: "../bootstrap/fonts/"');
           }
+        }
+      },
+      override: {
+        expand: true,
+        cwd: 'bootstrap/less',
+        src: '*.less',
+        dest: 'less/overrides',
+        filter: function(filepath) {
+          var name = filepath.split(/[\.\/]/).slice(-2)[0];
+          return name == grunt.config.get('override');
         }
       },
     },
@@ -66,8 +68,24 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
 
   grunt.registerTask('default', [
-    'copy',
+    'copy:variables',
     'less',
     'cssmin'
   ]);
+
+  grunt.registerTask('override', function(n) {
+    if (n == null) {
+      grunt.warn('Build num must be specified, like build:001.');
+    }
+
+    var contents = grunt.file.read('less/overrides.less');
+
+    if (contents.search(n + '.less') == -1) {
+      grunt.config.set('override', n);
+      grunt.task.run('copy:override');
+
+      contents += '@import "overrides/' + n + '.less";' + "\n";
+      grunt.file.write('less/overrides.less', contents);
+    }
+  });
 };
