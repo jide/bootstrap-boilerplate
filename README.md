@@ -29,3 +29,9 @@ Usage
 **Production**
 
     $ grunt
+
+Todo
+----
+
+- Rename custom.less to theme.less.
+- Add a grunt task to override any component, copying files to "overrides" folder and remove overrides.less and mixins.less.
